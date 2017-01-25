@@ -1,0 +1,48 @@
+create table USERS
+(
+  USER_LOGIN VARCHAR2(20 CHAR) not null,
+  FIRSTNAME VARCHAR2(20 CHAR) not null,
+  LASTNAME VARCHAR2(20 CHAR) not null,
+  PASSWORD  VARCHAR2(20 CHAR) not null,
+  USER_ROLE VARCHAR2(20) not null
+) ;
+  
+alter table USERS
+  add primary key (USER_LOGIN) ;
+-------------------------------
+-- Create table
+create table PROECTS
+(
+  IDproect         VARCHAR2(50 CHAR) not null,
+  PROECTNAME       VARCHAR2(50 CHAR) not null, 
+  ProectDATE       TIMESTAMP(6) not null
+) ;
+alter table PROECTS
+  add primary key (IDproect) ;
+---------------------------------------
+ 
+-- Create table
+create table PROECT_DETAILS
+(
+  ID         VARCHAR2(50 CHAR) not null,
+  LOGIN   VARCHAR2(20 CHAR) not null,
+  HEADNAME   VARCHAR2(50 CHAR) not null,
+  DESCRIPTION   VARCHAR2(500 CHAR) not null,
+  Proect_ID   VARCHAR2(50 CHAR) not null
+) ;
+
+------------ Constraints
+
+
+alter table PROECT_DETAILS
+  add primary key (ID);
+alter table PROECT_DETAILS
+  add constraint PROECT_DETAIL_PRO_FK foreign key (PROECT_ID)
+  references PROECTS (IDproect)
+  ON DELETE CASCADE;
+alter table PROECT_DETAILS
+  add constraint PROECT_DETAIL_USERS_FK foreign key (LOGIN)
+  references USERS (USER_LOGIN)
+  ON DELETE CASCADE;
+
+ --------------------

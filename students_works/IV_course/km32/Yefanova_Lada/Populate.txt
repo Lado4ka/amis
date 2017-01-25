@@ -1,0 +1,59 @@
+create or replace 
+PROCEDURE INSERTD(
+ID IN VARCHAR2 
+, LOGIN IN VARCHAR2  
+, HEADNAME IN VARCHAR2  
+, DESCRIPTION IN VARCHAR2  
+, proect_id IN VARCHAR2 
+) AS 
+
+BEGIN
+SET TRANSACTION ISOLATION LEVEL Serializable;
+  Insert into proect_details (id, login, headname, description,proect_id)
+  values (id, login, headname, description,proect_id);
+  commit;
+END INSERTD;
+---------------------
+
+
+create or replace 
+PROCEDURE INSERTPROJECT 
+(
+  ID IN VARCHAR2 
+, NAME IN VARCHAR2 
+) AS 
+BEGIN
+SET TRANSACTION ISOLATION LEVEL Serializable;
+Insert into proects (idproect, proectname,proectdate) 
+values ( id,name,current_timestamp);
+commit;
+END INSERTPROJECT;
+
+
+
+-------------
+create or replace 
+PROCEDURE  REGISTER(
+ iname IN VARCHAR2
+, Fname IN VARCHAR2
+, Lname IN VARCHAR2
+, password IN VARCHAR2 
+) AS 
+
+BEGIN
+SET TRANSACTION ISOLATION LEVEL Serializable;
+  Insert into users (user_login, firstName,lastName, password, user_role)
+  values (iname, Fname, Lname, password,'USER');
+  commit;
+END REGISTER;
+
+------------------------VIEW
+Select proects.IDPROECT IDPROJECT,
+proects.PROECTNAME PROJECTNAME,
+proects.PROECTDATE PROJECTDATE,
+proect_details.ID DETAILID,
+proect_details.LOGIN CREATORLOGIN,
+proect_details.HEADNAME HEADNAME,
+proect_details.DESCRIPTION DESCRIPTION
+from PROECTS inner join PROECT_DETAILS on
+PROECTS.idproect = proect_details.proect_id
